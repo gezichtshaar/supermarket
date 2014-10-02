@@ -11,14 +11,11 @@ import java.util.Set;
 public class Supermarket {
     private Database database;
 
-    private Set<Person> persons;
-
     private Storage storage;
+    private Set<Person> persons;
     private BuyZone[][] buyZone;
-
     private Queue<Customer> cashRegisterQueue;
     private CashRegister[] cashRegisters;
-
 
     public Supermarket() {
         this.database = new Database();
