@@ -1,21 +1,29 @@
 package org.nhl.supermarket;
 
 import java.math.BigDecimal;
+import java.util.Stack;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by ruben on 02/10/14.
  */
 public class Aisle implements BuyZone, Task {
-    private String name;
-    private Product[] products;
-    private String[] productNames;
+    private List<Shelf> shelves;
 
-    public void update(Supermarket supermarket) {
-        // Logic
+    public Aisle() {
+        this.shelves = new ArrayList<Shelf>();
     }
 
-    public Product takeProduct(String productName) {
+    public Product takeProduct(Products productID) {
         // dummy return value
-        return new Product(0, "hello", new BigDecimal("3.50"));  // tree fiddy
+        return null;
     }
+
+    @Override
+    public void update(Supermarket supermarket) {
+
+    }
+
 }
