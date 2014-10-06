@@ -9,6 +9,8 @@ import java.util.Set;
  * Created by ruben on 02/10/14.
  */
 public class Supermarket {
+    private Boolean running = false;
+
     private Database database;
 
     private Storage storage;
@@ -30,7 +32,9 @@ public class Supermarket {
     }
 
     public void simulate() {
-        while (true) {
+        running = true;
+
+        while (running) {
             // Logic
         }
     }
