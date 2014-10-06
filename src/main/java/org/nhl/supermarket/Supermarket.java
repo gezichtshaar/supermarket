@@ -31,6 +31,10 @@ public class Supermarket {
         this.cashRegisters = new CashRegister[]{ };
     }
 
+    public Queue<Customer> getCashRegisterQueue() {
+        return cashRegisterQueue;
+    }
+
     public void simulate() {
         running = true;
 
