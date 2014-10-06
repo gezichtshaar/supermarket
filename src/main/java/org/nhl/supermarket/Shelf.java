@@ -9,7 +9,7 @@ public class Shelf {
     private Products productID;
     private Stack<Product> products;
 
-    private Shelf(Products productID) {
+    public Shelf(Products productID) {
         this.productID = productID;
         this.products = new Stack<Product>();
     }
