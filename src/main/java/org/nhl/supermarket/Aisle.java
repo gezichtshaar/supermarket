@@ -17,7 +17,11 @@ public class Aisle implements BuyZone, Task {
     }
 
     public Product takeProduct(Products productID) {
-        // dummy return value
+        for (Shelf shelf : shelves) {
+            if (shelf.hasProduct(productID)) {
+                return shelf.takeProduct();
+            }
+        }
         return null;
     }
 
