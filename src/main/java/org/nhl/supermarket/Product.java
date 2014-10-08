@@ -9,6 +9,7 @@ public class Product {
     private Products id;
     private String name;
     private BigDecimal price;
+    private float discount;
 
     public Product(Products id, String name, BigDecimal price) {
         this.id = id;

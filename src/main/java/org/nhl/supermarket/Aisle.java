@@ -33,6 +33,15 @@ public class Aisle implements BuyZone, Task {
         return null;
     }
 
+    public Product addProduct(Product product) {
+        for (Shelf shelf : shelves) {
+            if (shelf.hasProduct(product.getId())) {
+                shelf.addProduct(product);
+            }
+        }
+        return null;
+    }
+
     public void addShelf(Products productID) {
         shelves.add(new Shelf(productID));
     }
