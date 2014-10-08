@@ -1,4 +1,5 @@
-package org.nhl.supermarket;
+package org.nhl.supermarket.models;
+
 
 /**
  * Created by remy on 06/10/14.

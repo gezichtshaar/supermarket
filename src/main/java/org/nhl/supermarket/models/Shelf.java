@@ -1,6 +1,8 @@
-package org.nhl.supermarket;
+package org.nhl.supermarket.models;
 
 import java.util.Stack;
+
+import org.nhl.supermarket.Products;
 
 /**
  * Created by remy on 06/10/14.
