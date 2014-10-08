@@ -2,8 +2,6 @@ package org.nhl.supermarket.actors;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Vector;
-
 import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Person;
