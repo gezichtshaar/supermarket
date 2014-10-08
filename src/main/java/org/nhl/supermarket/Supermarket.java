@@ -15,7 +15,7 @@ public class Supermarket {
 
     private Storage storage;
     private Set<Person> persons;
-    private BuyZone[][] buyZone;
+    private ZoneLayout zoneLayout;
     private Queue<Customer> cashRegisterQueue;
     private CashRegister[] cashRegisters;
 
@@ -25,7 +25,7 @@ public class Supermarket {
         this.persons = new HashSet<Person>();
 
         this.storage = new Storage();
-        this.buyZone = new BuyZone[][]{{ }};
+        this.zoneLayout = new ZoneLayout();
 
         this.cashRegisterQueue = new ArrayDeque<Customer>();
         this.cashRegisters = new CashRegister[]{ };
