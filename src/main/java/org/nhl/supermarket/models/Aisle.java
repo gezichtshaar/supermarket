@@ -40,7 +40,7 @@ public class Aisle implements BuyZone, Task {
     }
 
     public void addProduct(Product product) {
-        Boolean isBreak = false;
+        boolean isBreak = false;
 
         for (Shelf shelf : shelves) {
             if (shelf.getProductId() == product.getId()) {
