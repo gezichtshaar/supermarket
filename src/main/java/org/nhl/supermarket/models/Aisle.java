@@ -1,6 +1,5 @@
 package org.nhl.supermarket.models;
 
-import org.nhl.supermarket.Products;
 import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Task;
@@ -14,43 +13,44 @@ import java.util.List;
 public class Aisle implements BuyZone, Task {
     private List<Shelf> shelves;
 
-    public Aisle() {
-        this(new Products[]{});
-    }
-
-    public Aisle(Products[] productIDs) {
+    public Aisle(int[] productIds) {
         this.shelves = new ArrayList<Shelf>();
 
-        for (Products productID : productIDs) {
-            addShelf(productID);
+        for (int productId : productIds) {
+            addShelf(productId);
         }
     }
 
-    public Product takeProduct(Products productID) {
+    public Product takeProduct(int productId) {
         for (Shelf shelf : shelves) {
-            if (shelf.hasProduct(productID)) {
+            if (shelf.getProductId() == productId) {
                 return shelf.takeProduct();
             }
         }
-        throw new IllegalArgumentException("This aisle does not have that product");
+        throw new IllegalArgumentException("This Aisle does not have that Product");
     }
 
-    public Product addProduct(Product product) {
+    public void addProduct(Product product) {
+        Boolean isBreak = false;
+
         for (Shelf shelf : shelves) {
-            if (shelf.hasProduct(product.getId())) {
+            if (shelf.getProductId() == product.getId()) {
                 shelf.addProduct(product);
+                isBreak = true;
+                break;
             }
         }
-        return null;
+        if (!isBreak) {
+            throw new IllegalArgumentException("This Aisle cannot hold the provided Product.");
+        }
     }
 
-    public void addShelf(Products productID) {
-        shelves.add(new Shelf(productID));
+    public void addShelf(int productId) {
+        shelves.add(new Shelf(productId));
     }
 
     @Override
     public void update(Supermarket supermarket) {
 
     }
-
 }

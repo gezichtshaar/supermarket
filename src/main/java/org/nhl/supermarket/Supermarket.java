@@ -24,11 +24,11 @@ public class Supermarket {
     private Queue<Customer> cashRegisterQueue;
     
     private Storage storage;
-    private BuyZone[][] layout;
+    private BuyZone[] buyZones;
     private CashRegister[] cashRegisters;
 
-    public Supermarket(BuyZone[][] layout) {
-        this.layout = layout;
+    public Supermarket(BuyZone[] buyZones) {
+        this.buyZones = buyZones;
 
         this.database = new Database();
 

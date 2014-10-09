@@ -17,9 +17,8 @@ public class CashRegister implements Task {
     }
 
     public void update(Supermarket supermarket) {
-        Customer customer = supermarket.getCashRegisterQueue().poll();
-        if (customer != null) {
-            // Logic
+        if (!supermarket.getCashRegisterQueue().isEmpty()) {
+            Customer customer = supermarket.getCashRegisterQueue().poll();
         }
     }
 }

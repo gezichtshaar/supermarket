@@ -1,38 +1,36 @@
 package org.nhl.supermarket.models;
 
-import org.nhl.supermarket.Products;
-
 import java.util.Stack;
 
 /**
  * Created by remy on 06/10/14.
  */
 public class Shelf {
-    private Products productID;
+    private int productId;
     private Stack<Product> products;
 
-    public Shelf(Products productID) {
-        this.productID = productID;
+    public Shelf(int productId) {
+        this.productId = productId;
         this.products = new Stack<Product>();
     }
 
-    public boolean addProduct(Product product) {
-        if (product.getId() == productID) {
+    public void addProduct(Product product) {
+        if (product.getId() == productId) {
             products.push(product);
-            return true;
+        } else {
+            throw new IllegalArgumentException("Shelf cannot hold provided Product");
         }
-        return false;
     }
 
-    public Products getProductID() {
-        return productID;
+    public int getProductId() {
+        return productId;
     }
 
     public Product takeProduct() {
         return products.pop();
     }
 
-    public boolean hasProduct(Products productID) {
-        return this.productID == productID && !products.isEmpty();
+    public boolean hasProduct(int productId) {
+        return this.productId == productId && !products.isEmpty();
     }
 }

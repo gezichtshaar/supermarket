@@ -10,8 +10,8 @@ import java.util.Random;
  * Created by remy on 06/10/14.
  */
 public class StudentCustomer extends Customer {
-    public StudentCustomer(BuyZone[][] layout) {
-        super(layout, new BigDecimal(new Random().nextInt(30)));
+    public StudentCustomer() {
+        super(new BigDecimal(new Random().nextInt(30)));
     }
 
     public void act(Supermarket supermarket) {
