@@ -1,4 +1,6 @@
-package org.nhl.supermarket;
+package org.nhl.supermarket.models;
+
+import org.nhl.supermarket.Products;
 
 import java.math.BigDecimal;
 

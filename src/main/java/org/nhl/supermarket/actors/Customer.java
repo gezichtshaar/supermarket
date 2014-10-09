@@ -1,25 +1,23 @@
-package org.nhl.supermarket;
+package org.nhl.supermarket.actors;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Vector;
+import org.nhl.supermarket.Supermarket;
+import org.nhl.supermarket.interfaces.BuyZone;
+import org.nhl.supermarket.interfaces.Person;
+import org.nhl.supermarket.models.Location;
+import org.nhl.supermarket.models.Product;
 
 /**
  * Created by ruben on 02/10/14.
  */
 public abstract class Customer implements Person {
-    protected int x;
-    protected int y;
+    protected Location location;
     protected List<Product> shoppingCart;
     protected BigDecimal balance;
 
-    public Customer() {
-        this.x = 0;
-        this.y = 0;
-    }
-
-    public Customer(BigDecimal balance) {
-        this();
+    public Customer(BuyZone[][] layout, BigDecimal balance) {
+    	this.location = new Location(layout);
         this.balance = balance;
     }
 
@@ -35,7 +33,5 @@ public abstract class Customer implements Person {
         balance = balance.subtract(amount);
     }
 
-    public final void act(Supermarket supermarket) {
-        // Logic
-    }
+    public abstract void act(Supermarket supermarket);
 }

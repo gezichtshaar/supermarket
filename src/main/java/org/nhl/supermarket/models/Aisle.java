@@ -1,7 +1,12 @@
-package org.nhl.supermarket;
+package org.nhl.supermarket.models;
 
-import java.math.BigDecimal;
-import java.util.*;
+import org.nhl.supermarket.Products;
+import org.nhl.supermarket.Supermarket;
+import org.nhl.supermarket.interfaces.BuyZone;
+import org.nhl.supermarket.interfaces.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ruben on 02/10/14.
@@ -27,7 +32,7 @@ public class Aisle implements BuyZone, Task {
                 return shelf.takeProduct();
             }
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("This aisle does not have that product");
     }
 
     public Product addProduct(Product product) {

@@ -1,9 +1,16 @@
 package org.nhl.supermarket;
 
-import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import org.nhl.supermarket.actors.Customer;
+import org.nhl.supermarket.interfaces.BuyZone;
+import org.nhl.supermarket.interfaces.Person;
+import org.nhl.supermarket.models.CashRegister;
+import org.nhl.supermarket.models.Database;
+import org.nhl.supermarket.models.Storage;
 
 /**
  * Created by ruben on 02/10/14.
@@ -13,21 +20,23 @@ public class Supermarket {
 
     private Database database;
 
-    private Storage storage;
     private Set<Person> persons;
-    private ZoneLayout zoneLayout;
     private Queue<Customer> cashRegisterQueue;
+    
+    private Storage storage;
+    private BuyZone[][] layout;
     private CashRegister[] cashRegisters;
 
-    public Supermarket() {
+    public Supermarket(BuyZone[][] layout) {
+    	this.layout = layout;
+    	
         this.database = new Database();
 
         this.persons = new HashSet<Person>();
 
         this.storage = new Storage();
-        this.zoneLayout = new ZoneLayout();
 
-        this.cashRegisterQueue = new ArrayDeque<Customer>();
+        this.cashRegisterQueue = new ConcurrentLinkedQueue<Customer>();
         this.cashRegisters = new CashRegister[]{ };
     }
 
