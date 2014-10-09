@@ -1,9 +1,6 @@
 package org.nhl.supermarket;
 
-import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.interfaces.BuyZone;
-
-import java.util.Stack;
 
 /**
  * Hello world!
