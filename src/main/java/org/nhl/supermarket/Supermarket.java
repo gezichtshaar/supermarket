@@ -28,8 +28,8 @@ public class Supermarket {
     private CashRegister[] cashRegisters;
 
     public Supermarket(BuyZone[][] layout) {
-    	this.layout = layout;
-    	
+        this.layout = layout;
+
         this.database = new Database();
 
         this.persons = new HashSet<Person>();

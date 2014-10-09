@@ -9,9 +9,9 @@ import org.nhl.supermarket.interfaces.Task;
  */
 public class Employee implements Person {
     private Task task;
-    
-    public void act(Supermarket supermarket){
-        if(task != null) {
+
+    public void act(Supermarket supermarket) {
+        if (task != null) {
             task.update(supermarket);
         }
     }
