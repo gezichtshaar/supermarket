@@ -6,6 +6,7 @@ import org.nhl.supermarket.interfaces.Person;
 import org.nhl.supermarket.models.Product;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 public abstract class Customer implements Person {
     protected int indexPosition = 0;
     protected List<Product> shoppingCart;
+    protected HashMap<Integer, Integer> desiredProductIds;
     protected BigDecimal balance;
 
     public Customer(BigDecimal balance) {

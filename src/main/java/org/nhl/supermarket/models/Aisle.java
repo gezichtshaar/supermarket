@@ -21,6 +21,15 @@ public class Aisle implements BuyZone, Task {
         }
     }
 
+    public boolean hasProduct(int productId) {
+        for (Shelf shelf : shelves) {
+            if (shelf.hasProduct(productId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Product takeProduct(int productId) {
         for (Shelf shelf : shelves) {
             if (shelf.getProductId() == productId) {

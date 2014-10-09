@@ -40,6 +40,10 @@ public class Supermarket {
         this.cashRegisters = new CashRegister[]{ };
     }
 
+    public BuyZone[] getBuyZones() {
+        return buyZones;
+    }
+
     public Queue<Customer> getCashRegisterQueue() {
         return cashRegisterQueue;
     }
