@@ -10,7 +10,15 @@ public class Aisle implements BuyZone, Task {
     private List<Shelf> shelves;
 
     public Aisle() {
+        this(new Products[]{});
+    }
+
+    public Aisle(Products[] productIDs) {
         this.shelves = new ArrayList<Shelf>();
+
+        for (Products productID : productIDs) {
+            addShelf(productID);
+        }
     }
 
     public Product takeProduct(Products productID) {
@@ -20,6 +28,19 @@ public class Aisle implements BuyZone, Task {
             }
         }
         throw new IllegalArgumentException();
+    }
+
+    public Product addProduct(Product product) {
+        for (Shelf shelf : shelves) {
+            if (shelf.hasProduct(product.getId())) {
+                shelf.addProduct(product);
+            }
+        }
+        return null;
+    }
+
+    public void addShelf(Products productID) {
+        shelves.add(new Shelf(productID));
     }
 
     @Override

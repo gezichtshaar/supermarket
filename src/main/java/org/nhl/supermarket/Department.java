@@ -3,13 +3,14 @@ package org.nhl.supermarket;
 import java.util.Stack;
 
 /**
- * Created by remy on 06/10/14.
+ * Created by remy on 08/10/14.
  */
-public class Shelf {
+public class Department implements BuyZone, Task {
+
     private Products productID;
     private Stack<Product> products;
 
-    public Shelf(Products productID) {
+    public Department(Products productID) {
         this.productID = productID;
         this.products = new Stack<Product>();
     }
@@ -22,15 +23,13 @@ public class Shelf {
         return false;
     }
 
-    public Products getProductID() {
-        return productID;
-    }
-
-    public Product takeProduct() {
+    @Override
+    public Product takeProduct(Products productID) {
         return products.pop();
     }
 
-    public boolean hasProduct(Products productID) {
-        return this.productID == productID && !products.isEmpty();
+    @Override
+    public void update(Supermarket supermarket) {
+        //logic
     }
 }
