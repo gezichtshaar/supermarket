@@ -7,5 +7,7 @@ import org.nhl.supermarket.models.Product;
  */
 public interface BuyZone {
     public void addProduct(Product product);
+
+    public boolean hasProduct(int productId);
     public Product takeProduct(int productID);
 }

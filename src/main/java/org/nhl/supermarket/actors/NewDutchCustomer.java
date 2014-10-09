@@ -15,6 +15,8 @@ public class NewDutchCustomer extends Customer {
     }
 
     public void act(Supermarket supermarket) {
+        if (supermarket.getBuyZones()[indexPosition].hasProduct(productId)) {
 
+        }
     }
 }
