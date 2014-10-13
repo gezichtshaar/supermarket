@@ -29,6 +29,11 @@ public class Department implements BuyZone, Task {
     }
 
     @Override
+    public boolean hasProduct(int productId) {
+        return false;
+    }
+
+    @Override
     public Product takeProduct(int productID) {
         return products.pop();
     }

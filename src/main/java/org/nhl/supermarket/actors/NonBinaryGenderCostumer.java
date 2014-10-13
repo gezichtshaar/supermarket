@@ -15,6 +15,6 @@ public class NonBinaryGenderCostumer extends Customer {
     }
 
     public void act(Supermarket supermarket) {
-
+        super.act(supermarket);
     }
 }

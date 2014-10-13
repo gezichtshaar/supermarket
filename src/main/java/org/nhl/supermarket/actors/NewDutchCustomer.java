@@ -15,12 +15,6 @@ public class NewDutchCustomer extends Customer {
     }
 
     public void act(Supermarket supermarket) {
-        BuyZone currentBuyZone = supermarket.getBuyZones()[indexPosition];
-
-        for (int productId : desiredProductIds.keySet()) {
-            if (currentBuyZone.hasProduct(productId)) {
-                shoppingCart.add(currentBuyZone.takeProduct(productId));
-            }
-        }
+        super.act(supermarket);
     }
 }

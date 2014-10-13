@@ -15,6 +15,6 @@ public class StudentCustomer extends Customer {
     }
 
     public void act(Supermarket supermarket) {
-
+        super.act(supermarket);
     }
 }
