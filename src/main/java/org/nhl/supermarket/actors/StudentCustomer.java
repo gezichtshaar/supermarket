@@ -14,6 +14,7 @@ public class StudentCustomer extends Customer {
         super(new BigDecimal(new Random().nextInt(30)));
     }
 
+    @Override
     public void act(Supermarket supermarket) {
         super.act(supermarket);
     }

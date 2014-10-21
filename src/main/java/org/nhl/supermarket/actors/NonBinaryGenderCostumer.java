@@ -14,6 +14,7 @@ public class NonBinaryGenderCostumer extends Customer {
         super(new BigDecimal(new Random().nextInt(20)));
     }
 
+    @Override
     public void act(Supermarket supermarket) {
         super.act(supermarket);
     }
