@@ -16,6 +16,7 @@ public abstract class Customer implements Person {
     protected List<Product> shoppingCart;
     protected Map<Integer, Integer> desiredProductIds;
     protected BigDecimal balance;
+    private boolean desiredProductsAvailable = true;
 
     public Customer(BigDecimal balance) {
         this.balance = balance;
@@ -99,17 +100,23 @@ public abstract class Customer implements Person {
             }
         }
         if (!isBreak) {
-            // No product found from missingProducts in entire Supermarket. Handle this somehow.
+            // No product found from missingProducts in entire Supermarket.
+            desiredProductsAvailable = false;
         }
+    }
+
+    private void goToCashRegister(Supermarket supermarket) {
+        indexPosition = -1;
+        supermarket.getCashRegisterQueue().add(this);
     }
 
     private void step(Supermarket supermarket) {
         List<Integer> missingProducts = findMissingProducts();
 
-        if (!missingProducts.isEmpty()) {
-            goToNextBuyZone(supermarket.getBuyZones(), missingProducts);
+        if (missingProducts.isEmpty() || !desiredProductsAvailable) {
+            goToCashRegister(supermarket);
         } else {
-            // Go to cash register.
+            goToNextBuyZone(supermarket.getBuyZones(), missingProducts);
         }
     }
 
