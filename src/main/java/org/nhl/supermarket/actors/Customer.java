@@ -35,7 +35,14 @@ public abstract class Customer implements Person {
     private List<Integer> findMissingProducts() {
         List<Integer> missingProducts = new ArrayList<Integer>();
         for (int id : desiredProductIds.keySet()) {
-            if (!shoppingCart.contains(id)) {
+            boolean containsProduct = false;
+            for (Product product : shoppingCart) {
+                if (product.getId() == id)
+                {
+                    containsProduct = true;
+                }
+            }
+            if (!containsProduct) {
                 missingProducts.add(id);
             }
         }
@@ -75,6 +82,16 @@ public abstract class Customer implements Person {
             if (buyZone.hasProduct(productId)) {
                 putInShoppingCart(productId, buyZone);
             }
+        }
+    }
+
+    private void step() {
+        List<Integer> missingProducts = findMissingProducts();
+
+        if (!missingProducts.isEmpty()) {
+            // Go to next BuyZone.
+        } else {
+            // Go to cash register.
         }
     }
 
