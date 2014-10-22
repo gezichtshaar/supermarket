@@ -6,10 +6,7 @@ import org.nhl.supermarket.interfaces.Person;
 import org.nhl.supermarket.models.Product;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by ruben on 02/10/14.
@@ -49,13 +46,41 @@ public abstract class Customer implements Person {
         balance = balance.subtract(amount);
     }
 
+    /**
+     * Take Products from `buyZone` and put them in `shoppingCart`.
+     * <p>
+     * If `desiredProductIds` desires more than one Product, try to take as many as desired. In case `buyZone` has run
+     * out of Products, simply stop taking more Products.
+     *
+     * @param productId
+     * @param buyZone
+     */
+    private void putInShoppingCart(int productId, BuyZone buyZone) {
+        for (int i = 0; i < desiredProductIds.get(productId); i++) {
+            try {
+                shoppingCart.add(buyZone.takeProduct(productId));
+            } catch (EmptyStackException e) {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Put all desired Products that are readily available in `buyZone` in `shoppingCart`.
+     *
+     * @param buyZone
+     */
+    private void takeProductsFromBuyZone(BuyZone buyZone) {
+        for (int productId : desiredProductIds.keySet()) {
+            if (buyZone.hasProduct(productId)) {
+                putInShoppingCart(productId, buyZone);
+            }
+        }
+    }
+
     public void act(Supermarket supermarket) {
         BuyZone currentBuyZone = supermarket.getBuyZones()[indexPosition];
 
-        for (int productId : desiredProductIds.keySet()) {
-            if (currentBuyZone.hasProduct(productId)) {
-                shoppingCart.add(currentBuyZone.takeProduct(productId));
-            }
-        }
+        takeProductsFromBuyZone(currentBuyZone);
     }
 }
