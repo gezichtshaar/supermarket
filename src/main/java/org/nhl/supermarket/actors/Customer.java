@@ -16,7 +16,6 @@ public abstract class Customer implements Person {
     protected List<Product> shoppingCart;
     protected Map<Integer, Integer> desiredProductIds;
     protected BigDecimal balance;
-    private boolean desiredProductsAvailable = true;
 
     public Customer(BigDecimal balance) {
         this.balance = balance;
@@ -60,8 +59,8 @@ public abstract class Customer implements Person {
      * If `desiredProductIds` desires more than one Product, try to take as many as desired. In case `buyZone` has run
      * out of Products, simply stop taking more Products.
      *
-     * @param productId
-     * @param buyZone
+     * @param productId unique identifier for product
+     * @param buyZone   instance of BuyZone that contains Product instances with the above identifier
      */
     private void putInShoppingCart(int productId, BuyZone buyZone) {
         for (int i = 0; i < desiredProductIds.get(productId); i++) {
@@ -76,7 +75,7 @@ public abstract class Customer implements Person {
     /**
      * Put all desired Products that are readily available in `buyZone` in `shoppingCart`.
      *
-     * @param buyZone
+     * @param buyZone instance of BuyZone
      */
     private void takeProductsFromBuyZone(BuyZone buyZone) {
         for (int productId : desiredProductIds.keySet()) {
@@ -86,13 +85,23 @@ public abstract class Customer implements Person {
         }
     }
 
-    private void goToNextBuyZone(BuyZone[] buyZones, List<Integer> missingProducts) {
+    /**
+     * Advance through the supermarket.
+     * <p>
+     * Step to a BuyZone that contains a Product from `findMissingProducts()`.
+     * If `findMissingProducts()` returns an empty list, or if the supermarket doesn't have all products in
+     * `findMissingProducts()` readily available; go to the cash register.
+     *
+     * @param supermarket instance of Supermarket
+     */
+    private void step(Supermarket supermarket) {
+        List<Integer> missingProducts = findMissingProducts();
         boolean isBreak = false;
 
         outerLoop:
-        for (int i = 0; i < buyZones.length; i++) {
+        for (int i = 0; i < supermarket.getBuyZones().length; i++) {
             for (int id : missingProducts) {
-                if (buyZones[i].hasProduct(missingProducts.get(id))) {
+                if (supermarket.getBuyZones()[i].hasProduct(missingProducts.get(id))) {
                     indexPosition = i;
                     isBreak = true;
                     break outerLoop;
@@ -100,23 +109,10 @@ public abstract class Customer implements Person {
             }
         }
         if (!isBreak) {
-            // No product found from missingProducts in entire Supermarket.
-            desiredProductsAvailable = false;
-        }
-    }
-
-    private void goToCashRegister(Supermarket supermarket) {
-        indexPosition = -1;
-        supermarket.getCashRegisterQueue().add(this);
-    }
-
-    private void step(Supermarket supermarket) {
-        List<Integer> missingProducts = findMissingProducts();
-
-        if (missingProducts.isEmpty() || !desiredProductsAvailable) {
-            goToCashRegister(supermarket);
-        } else {
-            goToNextBuyZone(supermarket.getBuyZones(), missingProducts);
+            // No product found from missingProducts in entire Supermarket, or `missingProducts` empty.
+            // Go to cash register.
+            indexPosition = -1;
+            supermarket.getCashRegisterQueue().add(this);
         }
     }
 
