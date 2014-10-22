@@ -1,7 +1,6 @@
 package org.nhl.supermarket.actors;
 
 import org.nhl.supermarket.Supermarket;
-import org.nhl.supermarket.interfaces.BuyZone;
 
 import java.math.BigDecimal;
 import java.util.Random;

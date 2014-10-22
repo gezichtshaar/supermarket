@@ -37,8 +37,7 @@ public abstract class Customer implements Person {
         for (int id : desiredProductIds.keySet()) {
             boolean containsProduct = false;
             for (Product product : shoppingCart) {
-                if (product.getId() == id)
-                {
+                if (product.getId() == id) {
                     containsProduct = true;
                 }
             }
