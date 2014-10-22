@@ -35,7 +35,7 @@ public abstract class Customer implements Person {
         return balance;
     }
 
-    public List<Integer> findMissingProducts() {
+    private List<Integer> findMissingProducts() {
         List<Integer> missingProducts = new ArrayList<Integer>();
         for (int id : desiredProductIds.keySet()) {
             if (!shoppingCart.contains(id)) {
