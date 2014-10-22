@@ -85,11 +85,26 @@ public abstract class Customer implements Person {
         }
     }
 
-    private void step() {
+    private void step(Supermarket supermarket) {
         List<Integer> missingProducts = findMissingProducts();
 
         if (!missingProducts.isEmpty()) {
             // Go to next BuyZone.
+            boolean isBreak = false;
+
+            outerLoop:
+            for (int i = 0; i < supermarket.getBuyZones().length; i++) {
+                for (int id : missingProducts) {
+                    if (supermarket.getBuyZones()[i].hasProduct(missingProducts.get(id))) {
+                        indexPosition = i;
+                        isBreak = true;
+                        break outerLoop;
+                    }
+                }
+            }
+            if (!isBreak) {
+                // No product found from missingProducts in entire Supermarket. Handle this somehow.
+            }
         } else {
             // Go to cash register.
         }
