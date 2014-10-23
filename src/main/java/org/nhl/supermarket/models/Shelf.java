@@ -26,6 +26,10 @@ public class Shelf {
         return productId;
     }
 
+    public Stack<Product> getProducts() {
+        return products;
+    }
+
     public Product takeProduct() {
         return products.pop();
     }
