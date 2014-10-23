@@ -4,9 +4,9 @@ import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
+import java.util.EmptyStackException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by ruben on 23/10/14.
@@ -47,6 +47,35 @@ public class TestShelf {
         Product product = new Product(2, "milk", new BigDecimal("1"));
         thrown.expect(IllegalArgumentException.class);
         shelf.addProduct(product);
+    }
+
+    @Test
+    public void testTakeProduct() {
+        Product product = new Product(1, "cheese", new BigDecimal("1"));
+        shelf.addProduct(product);
+        Product takenProduct = shelf.takeProduct();
+
+        assertEquals(product, takenProduct);
+    }
+
+    @Test
+    public void testTakeProductEmpty() {
+        thrown.expect(EmptyStackException.class);
+        shelf.takeProduct();
+    }
+
+    @Test
+    public void testHasProduct() {
+        Product product = new Product(1, "cheese", new BigDecimal("1"));
+        shelf.addProduct(product);
+        assertTrue(shelf.hasProduct(1));
+        assertFalse(shelf.hasProduct(2));
+    }
+
+    @Test
+    public void testHasProductNot() {
+        assertFalse(shelf.hasProduct(1));
+        assertFalse(shelf.hasProduct(2));
     }
 
     @After
