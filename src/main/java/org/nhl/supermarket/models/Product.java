@@ -9,7 +9,7 @@ public class Product {
     private int id;
     private String name;
     private BigDecimal price;
-    private BigDecimal discount;
+    private BigDecimal discount = new BigDecimal("1");
 
     public Product(int id, String name, BigDecimal price) {
         this.id = id;
@@ -31,5 +31,9 @@ public class Product {
 
     public BigDecimal getDiscount() {
         return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 }
