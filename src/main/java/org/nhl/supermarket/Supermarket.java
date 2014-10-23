@@ -52,7 +52,8 @@ public class Supermarket {
         running = true;
 
         while (running) {
-            // Logic
+            System.out.printf("Work in progress");
+            running = false;
         }
     }
 }
