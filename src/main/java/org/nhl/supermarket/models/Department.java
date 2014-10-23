@@ -30,7 +30,7 @@ public class Department implements BuyZone, Task {
 
     @Override
     public boolean hasProduct(int productId) {
-        return false;
+        return this.productId == productId && !products.isEmpty();
     }
 
     @Override
