@@ -1,26 +1,30 @@
 package org.nhl.supermarket.models;
 
 import org.junit.*;
-import static org.junit.Assert.*;
-
 import org.junit.rules.ExpectedException;
-import org.nhl.supermarket.models.Product;
-import org.nhl.supermarket.models.Shelf;
 
 import java.math.BigDecimal;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ruben on 23/10/14.
  */
 public class TestShelf {
     @Rule
-    public ExpectedException thrown= ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     private Shelf shelf;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
         // Code executed before the first test method
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        // Code executed after the last test method
     }
 
     @Before
@@ -48,10 +52,5 @@ public class TestShelf {
     @After
     public void tearDown() throws Exception {
         // Code executed after each test
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-        // Code executed after the last test method
     }
 }
