@@ -48,6 +48,10 @@ public class Supermarket {
         return cashRegisterQueue;
     }
 
+    public Storage getStorage() {
+        return storage;
+    }
+
     public void simulate() {
         running = true;
 
