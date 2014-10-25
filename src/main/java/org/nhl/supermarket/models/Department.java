@@ -1,10 +1,12 @@
 package org.nhl.supermarket.models;
 
 import org.nhl.supermarket.Supermarket;
+import org.nhl.supermarket.actors.Customer;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Task;
 import org.nhl.supermarket.models.Product;
 
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -14,6 +16,7 @@ public class Department implements BuyZone, Task {
 
     private int productId;
     private Stack<Product> products;
+    private Queue<Customer> costumers;
 
     public Department(int productId) {
         this.productId = productId;
@@ -36,8 +39,16 @@ public class Department implements BuyZone, Task {
         return products.pop();
     }
 
+    public Queue getQueue() {
+        return costumers;
+    }
+
     @Override
     public void update(Supermarket supermarket) {
-        //logic
+        Customer customer = costumers.poll();
+        if (supermarket.getBuyZones()[customer.getLocation()] == this ) {
+            customer.addProduct(products.pop());
+            customer.setIsInQueue(false);
+        }
     }
 }
