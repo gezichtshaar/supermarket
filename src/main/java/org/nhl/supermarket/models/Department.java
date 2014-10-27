@@ -1,10 +1,12 @@
 package org.nhl.supermarket.models;
 
 import org.nhl.supermarket.Supermarket;
+import org.nhl.supermarket.actors.Customer;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Task;
 import org.nhl.supermarket.models.Product;
 
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -12,32 +14,51 @@ import java.util.Stack;
  */
 public class Department implements BuyZone, Task {
 
-    private int productId;
-    private Stack<Product> products;
+    private Shelf shelf;
+    private Queue<Customer> customerQueue;
 
     public Department(int productId) {
-        this.productId = productId;
-        this.products = new Stack<Product>();
+        shelf = new Shelf(productId);
     }
 
     public void addProduct(Product product) {
-        if (product.getId() == productId) {
-            products.push(product);
+        if (product.getId() == shelf.getProductId()) {
+            shelf.addProduct(product);
         } else {
-            throw new IllegalArgumentException("Provided Product doesn't match Department's Product.");
+            throw new IllegalArgumentException("Provided Product doesn't match Department's Product");
         }
     }
 
     public boolean hasProduct(int productId) {
-        return this.productId == productId && !products.isEmpty();
+        return shelf.hasProduct(productId);
     }
 
-    public Product takeProduct(int productID) {
-        return products.pop();
+    public Product takeProduct(int productId) {
+        if (productId == shelf.getProductId()) {
+            return shelf.takeProduct();
+        } else {
+            throw new IllegalArgumentException("This department doesn't have that productId.");
+        }
     }
 
-    @Override
+    public boolean hasQueue() {
+        return true;
+    }
+
+    public void registerToQueue(Customer customer) {
+        if(!customerQueue.contains(customer)) {
+           customerQueue.add(customer);
+        }
+    }
+
+    public boolean inQueue(Customer customer) {
+        return customerQueue.contains(customer);
+    }
+
     public void update(Supermarket supermarket) {
-        //logic
+        Customer customer = customerQueue.poll();
+
+        int amount = customer.wantsProductAmount(shelf.getProductId());
+        customer.addProducts(shelf.takeProducts(amount));
     }
 }

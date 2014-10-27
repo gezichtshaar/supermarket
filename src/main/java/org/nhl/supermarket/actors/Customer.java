@@ -3,6 +3,7 @@ package org.nhl.supermarket.actors;
 import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Person;
+import org.nhl.supermarket.models.Department;
 import org.nhl.supermarket.models.Product;
 
 import java.math.BigDecimal;
@@ -61,6 +62,16 @@ public abstract class Customer implements Person {
         return missingProducts;
     }
 
+    public boolean desiresProductFromBuyZone(BuyZone buyZone) {
+        List<Integer> missingProducts = findMissingProducts();
+        for (int id : missingProducts) {
+            if (buyZone.hasProduct(missingProducts.get(id))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void subtractFromBalance(BigDecimal amount) {
         balance = balance.subtract(amount);
     }
@@ -115,6 +126,7 @@ public abstract class Customer implements Person {
             for (int id : missingProducts) {
                 if (supermarket.getBuyZones()[i].hasProduct(missingProducts.get(id))) {
                     indexPosition = i;
+
                     isBreak = true;
                     break outerLoop;
                 }
@@ -128,9 +140,33 @@ public abstract class Customer implements Person {
         }
     }
 
+    public int wantsProductAmount(int productID) {
+        return desiredProductIds.get(productID);
+    }
+
+    public void addProducts(List<Product> products) {
+        shoppingCart.addAll(products);
+    }
+
+    public int getLocation() {
+        return indexPosition;
+    }
+
     public void act(Supermarket supermarket) {
         BuyZone currentBuyZone = supermarket.getBuyZones()[indexPosition];
 
-        takeProductsFromBuyZone(currentBuyZone);
+        if (currentBuyZone.inQueue(this)) {
+            return;
+        }
+
+        if (currentBuyZone.hasQueue() && desiresProductFromBuyZone(currentBuyZone)) {
+            currentBuyZone.registerToQueue(this);
+        }
+        else if(desiresProductFromBuyZone(currentBuyZone)) {
+            takeProductsFromBuyZone(currentBuyZone);
+        }
+        else {
+            step(supermarket);
+        }
     }
 }

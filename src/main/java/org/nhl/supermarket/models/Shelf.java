@@ -1,11 +1,16 @@
 package org.nhl.supermarket.models;
 
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Stack;
 
 /**
  * Created by remy on 06/10/14.
  */
 public class Shelf {
+    private static final int MAX_PRODUCTS = 10;
+
     private int productId;
     private Stack<Product> products;
 
@@ -34,7 +39,29 @@ public class Shelf {
         return products.pop();
     }
 
+    public List<Product> takeProducts(int amount) {
+        List<Product> takenProducts = new ArrayList<Product>();
+        for(int i = 0; i < amount && i < products.size(); i++) {
+            takenProducts.add(products.pop());
+        }
+        return takenProducts;
+    }
+
     public boolean hasProduct(int productId) {
         return this.productId == productId && !products.isEmpty();
+    }
+
+    public void fill(Storage storage) {
+        for (int i = 0; i < MAX_PRODUCTS - productCount(); i++) {
+            try {
+                addProduct(storage.takeProduct(productId));
+            } catch (EmptyStackException e) {
+                break;
+            }
+        }
+    }
+
+    public int productCount() {
+        return products.size();
     }
 }
