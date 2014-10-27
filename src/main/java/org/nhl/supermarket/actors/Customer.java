@@ -17,14 +17,12 @@ public abstract class Customer implements Person {
     protected List<Product> shoppingCart;
     protected Map<Integer, Integer> desiredProductIds;
     protected BigDecimal balance;
-    protected boolean isInQueue;
 
     public Customer(BigDecimal balance) {
         this.balance = balance;
         this.shoppingCart = new ArrayList<Product>();
         // Needs implementation.
         this.desiredProductIds = new HashMap<Integer, Integer>();
-        this.isInQueue = false;
     }
 
     public List<Product> getShoppingCart() {
@@ -49,6 +47,16 @@ public abstract class Customer implements Person {
             }
         }
         return missingProducts;
+    }
+
+    public boolean desiresProductFromBuyZone(BuyZone buyZone) {
+        List<Integer> missingProducts = findMissingProducts();
+        for (int id : missingProducts) {
+            if (buyZone.hasProduct(missingProducts.get(id))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void subtractFromBalance(BigDecimal amount) {
@@ -97,50 +105,55 @@ public abstract class Customer implements Person {
      * @param supermarket instance of Supermarket
      */
     private void step(Supermarket supermarket) {
-        if(!isInQueue){
-            List<Integer> missingProducts = findMissingProducts();
-            boolean isBreak = false;
+        List<Integer> missingProducts = findMissingProducts();
+        boolean isBreak = false;
 
-            outerLoop:
-            for (int i = 0; i < supermarket.getBuyZones().length; i++) {
-                for (int id : missingProducts) {
-                    if (supermarket.getBuyZones()[i].hasProduct(missingProducts.get(id))) {
-                        indexPosition = i;
+        outerLoop:
+        for (int i = 0; i < supermarket.getBuyZones().length; i++) {
+            for (int id : missingProducts) {
+                if (supermarket.getBuyZones()[i].hasProduct(missingProducts.get(id))) {
+                    indexPosition = i;
 
-                        isBreak = true;
-                        break outerLoop;
-                    }
+                    isBreak = true;
+                    break outerLoop;
                 }
             }
-            if (!isBreak) {
-                // No product found from missingProducts in entire Supermarket, or `missingProducts` empty.
-                // Go to cash register.
-                indexPosition = -1;
-                supermarket.getCashRegisterQueue().add(this);
-            }
+        }
+        if (!isBreak) {
+            // No product found from missingProducts in entire Supermarket, or `missingProducts` empty.
+            // Go to cash register.
+            indexPosition = -1;
+            supermarket.getCashRegisterQueue().add(this);
         }
     }
 
-    public void addProduct(Product product) {
-
+    public int wantsProductAmount(int productID) {
+        return desiredProductIds.get(productID);
     }
 
-    public void goToQueue (Department department) {
-        department.getQueue().add(this);
-        isInQueue = true;
+    public void addProducts(List<Product> products) {
+        shoppingCart.addAll(products);
     }
 
     public int getLocation() {
         return indexPosition;
     }
 
-    public void setIsInQueue(boolean isInQueue) {
-        this.isInQueue = isInQueue;
-    }
-
     public void act(Supermarket supermarket) {
         BuyZone currentBuyZone = supermarket.getBuyZones()[indexPosition];
 
-        takeProductsFromBuyZone(currentBuyZone);
+        if (currentBuyZone.inQueue(this)) {
+            return;
+        }
+
+        if (currentBuyZone.hasQueue() && desiresProductFromBuyZone(currentBuyZone)) {
+            currentBuyZone.registerToQueue(this);
+        }
+        else if(desiresProductFromBuyZone(currentBuyZone)) {
+            takeProductsFromBuyZone(currentBuyZone);
+        }
+        else {
+            step(supermarket);
+        }
     }
 }

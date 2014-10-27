@@ -1,5 +1,6 @@
 package org.nhl.supermarket.models;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
@@ -36,6 +37,14 @@ public class Shelf {
 
     public Product takeProduct() {
         return products.pop();
+    }
+
+    public List<Product> takeProducts(int amount) {
+        List<Product> gonnaGive = new ArrayList<Product>();
+        for(int i = 0; i < amount && i < products.size(); i++) {
+            gonnaGive.add(products.pop());
+        }
+        return gonnaGive;
     }
 
     public boolean hasProduct(int productId) {

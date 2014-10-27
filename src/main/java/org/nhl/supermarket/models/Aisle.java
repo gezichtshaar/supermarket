@@ -1,11 +1,13 @@
 package org.nhl.supermarket.models;
 
 import org.nhl.supermarket.Supermarket;
+import org.nhl.supermarket.actors.Customer;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by ruben on 02/10/14.
@@ -16,7 +18,6 @@ public class Aisle implements BuyZone, Task {
 
     public Aisle(int[] productIds) {
         this.shelves = new ArrayList<Shelf>();
-
         for (int productId : productIds) {
             addShelf(productId);
         }
@@ -53,6 +54,17 @@ public class Aisle implements BuyZone, Task {
         if (!isBreak) {
             throw new IllegalArgumentException("This Aisle cannot hold the provided Product.");
         }
+    }
+
+    public boolean hasQueue() {
+        return false;
+    }
+
+    public void registerToQueue(Customer customer) {
+    }
+
+    public boolean inQueue(Customer customer) {
+        return false;
     }
 
     public void addShelf(int productId) {

@@ -14,41 +14,47 @@ import java.util.Stack;
  */
 public class Department implements BuyZone, Task {
 
-    private int productId;
-    private Stack<Product> products;
-    private Queue<Customer> costumers;
+    private Shelf shelf;
+    private Queue<Customer> customerQueue;
 
     public Department(int productId) {
-        this.productId = productId;
-        this.products = new Stack<Product>();
+        shelf = new Shelf(productId);
     }
 
     public void addProduct(Product product) {
-        if (product.getId() == productId) {
-            products.push(product);
-        } else {
-            throw new IllegalArgumentException("Provided Product doesn't match Department's Product.");
-        }
+        shelf.addProduct(product);
     }
 
     public boolean hasProduct(int productId) {
-        return this.productId == productId && !products.isEmpty();
+        return shelf.hasProduct(productId);
     }
 
-    public Product takeProduct(int productID) {
-        return products.pop();
-    }
-
-    public Queue getQueue() {
-        return costumers;
-    }
-
-    @Override
-    public void update(Supermarket supermarket) {
-        Customer customer = costumers.poll();
-        if (supermarket.getBuyZones()[customer.getLocation()] == this ) {
-            customer.addProduct(products.pop());
-            customer.setIsInQueue(false);
+    public Product takeProduct(int productId) {
+        if (productId == shelf.getProductId()) {
+            return shelf.takeProduct();
+        } else {
+            throw new IllegalArgumentException("This department doesn't have that productId.");
         }
+    }
+
+    public boolean hasQueue() {
+        return true;
+    }
+
+    public void registerToQueue(Customer customer) {
+        if(!customerQueue.contains(customer)) {
+           customerQueue.add(customer);
+        }
+    }
+
+    public boolean inQueue(Customer customer) {
+        return customerQueue.contains(customer);
+    }
+
+    public void update(Supermarket supermarket) {
+        Customer customer = customerQueue.poll();
+
+        int amount = customer.wantsProductAmount(shelf.getProductId());
+        customer.addProducts(shelf.takeProducts(amount));
     }
 }
