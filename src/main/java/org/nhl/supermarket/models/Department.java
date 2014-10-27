@@ -22,7 +22,11 @@ public class Department implements BuyZone, Task {
     }
 
     public void addProduct(Product product) {
-        shelf.addProduct(product);
+        if (product.getId() == shelf.getProductId()) {
+            shelf.addProduct(product);
+        } else {
+            throw new IllegalArgumentException("Provided Product doesn't match Department's Product");
+        }
     }
 
     public boolean hasProduct(int productId) {

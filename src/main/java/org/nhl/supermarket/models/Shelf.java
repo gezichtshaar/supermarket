@@ -40,11 +40,11 @@ public class Shelf {
     }
 
     public List<Product> takeProducts(int amount) {
-        List<Product> gonnaGive = new ArrayList<Product>();
+        List<Product> takenProducts = new ArrayList<Product>();
         for(int i = 0; i < amount && i < products.size(); i++) {
-            gonnaGive.add(products.pop());
+            takenProducts.add(products.pop());
         }
-        return gonnaGive;
+        return takenProducts;
     }
 
     public boolean hasProduct(int productId) {
