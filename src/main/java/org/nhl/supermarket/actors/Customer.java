@@ -24,12 +24,25 @@ public abstract class Customer implements Person {
         this.desiredProductIds = new HashMap<Integer, Integer>();
     }
 
+    public Customer(BigDecimal balance, HashMap<Integer, Integer> desiredProductIds) {
+        this(balance);
+        this.desiredProductIds = desiredProductIds;
+    }
+
     public List<Product> getShoppingCart() {
         return shoppingCart;
     }
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public Map<Integer, Integer> getDesiredProductIds() {
+        return desiredProductIds;
+    }
+
+    public void setDesiredProductIds(Map<Integer, Integer> desiredProductIds) {
+        this.desiredProductIds = desiredProductIds;
     }
 
     private List<Integer> findMissingProducts() {
