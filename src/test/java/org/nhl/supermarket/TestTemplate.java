@@ -1,4 +1,4 @@
-package org.nhl.supermarket.models;
+package org.nhl.supermarket;
 
 import org.junit.*;
 import org.junit.rules.ExpectedException;
