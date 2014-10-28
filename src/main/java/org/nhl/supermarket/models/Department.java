@@ -61,11 +61,22 @@ public class Department implements BuyZone, Task {
         return customerQueue.contains(customer);
     }
 
+
+
     @Override
     public void update(Supermarket supermarket) {
-        Customer customer = customerQueue.poll();
+        if (shelf.getProducts().isEmpty()) {
+            // Fill
+        } else if (!customerQueue.isEmpty()) {
+            // Help customer
+            Customer customer = customerQueue.poll();
 
-        int amount = customer.wantsProductAmount(shelf.getProductId());
-        customer.addProducts(shelf.takeProducts(amount));
+            int amount = customer.wantsProductAmount(shelf.getProductId());
+            customer.addProducts(shelf.takeProducts(amount));
+        } else {
+            // Fill
+        }
+
+
     }
 }
