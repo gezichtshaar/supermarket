@@ -21,6 +21,7 @@ public class Department implements BuyZone, Task {
         shelf = new Shelf(productId);
     }
 
+    @Override
     public void addProduct(Product product) {
         if (product.getId() == shelf.getProductId()) {
             shelf.addProduct(product);
@@ -29,10 +30,12 @@ public class Department implements BuyZone, Task {
         }
     }
 
+    @Override
     public boolean hasProduct(int productId) {
         return shelf.hasProduct(productId);
     }
 
+    @Override
     public Product takeProduct(int productId) {
         if (productId == shelf.getProductId()) {
             return shelf.takeProduct();
@@ -41,20 +44,24 @@ public class Department implements BuyZone, Task {
         }
     }
 
+    @Override
     public boolean hasQueue() {
         return true;
     }
 
+    @Override
     public void registerToQueue(Customer customer) {
         if(!customerQueue.contains(customer)) {
            customerQueue.add(customer);
         }
     }
 
+    @Override
     public boolean inQueue(Customer customer) {
         return customerQueue.contains(customer);
     }
 
+    @Override
     public void update(Supermarket supermarket) {
         Customer customer = customerQueue.poll();
 

@@ -23,6 +23,11 @@ public class Aisle implements BuyZone, Task {
         }
     }
 
+    public void addShelf(int productId) {
+        shelves.add(new Shelf(productId));
+    }
+
+    @Override
     public boolean hasProduct(int productId) {
         for (Shelf shelf : shelves) {
             if (shelf.hasProduct(productId)) {
@@ -32,6 +37,7 @@ public class Aisle implements BuyZone, Task {
         return false;
     }
 
+    @Override
     public Product takeProduct(int productId) {
         for (Shelf shelf : shelves) {
             if (shelf.getProductId() == productId) {
@@ -41,6 +47,7 @@ public class Aisle implements BuyZone, Task {
         throw new IllegalArgumentException("This Aisle does not have that Product");
     }
 
+    @Override
     public void addProduct(Product product) {
         boolean isBreak = false;
 
@@ -56,21 +63,21 @@ public class Aisle implements BuyZone, Task {
         }
     }
 
+    @Override
     public boolean hasQueue() {
         return false;
     }
 
+    @Override
     public void registerToQueue(Customer customer) {
     }
 
+    @Override
     public boolean inQueue(Customer customer) {
         return false;
     }
 
-    public void addShelf(int productId) {
-        shelves.add(new Shelf(productId));
-    }
-
+    @Override
     public void update(Supermarket supermarket) {
         int moduloIndex;
         for (int i = 0; i < shelves.size(); i++) {

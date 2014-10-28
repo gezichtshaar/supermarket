@@ -10,6 +10,7 @@ import org.nhl.supermarket.interfaces.Task;
 public class Employee implements Person {
     private Task task;
 
+    @Override
     public void act(Supermarket supermarket) {
         if (task != null) {
             task.update(supermarket);

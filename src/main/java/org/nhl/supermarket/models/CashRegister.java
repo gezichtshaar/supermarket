@@ -16,6 +16,7 @@ public class CashRegister implements Task {
         this.balance = new BigDecimal(0);
     }
 
+    @Override
     public void update(Supermarket supermarket) {
         if (!supermarket.getCashRegisterQueue().isEmpty()) {
             Customer customer = supermarket.getCashRegisterQueue().poll();

@@ -169,6 +169,7 @@ public abstract class Customer implements Person {
         shoppingCart.addAll(products);
     }
 
+    @Override
     public void act(Supermarket supermarket) {
         BuyZone currentBuyZone = supermarket.getBuyZones()[indexPosition];
 
