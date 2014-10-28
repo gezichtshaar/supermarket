@@ -45,6 +45,11 @@ public abstract class Customer implements Person {
         this.desiredProductIds = desiredProductIds;
     }
 
+    /**
+     * Get a list of product IDs that the customer desires, but doesn't hold in their shopping cart yet.
+     *
+     * @return list of product IDs that are desired, but not yet in the customer's shopping cart
+     */
     private List<Integer> findMissingProducts() {
         List<Integer> missingProducts = new ArrayList<Integer>();
         for (int id : desiredProductIds.keySet()) {
@@ -61,6 +66,12 @@ public abstract class Customer implements Person {
         return missingProducts;
     }
 
+    /**
+     * Check whether a BuyZone holds products that the customer desires.
+     *
+     * @param buyZone BuyZone that must be inspected for products that the customer desired
+     * @return        boolean value for whether the BuyZone contains any desired products
+     */
     public boolean desiresProductFromBuyZone(BuyZone buyZone) {
         List<Integer> missingProducts = findMissingProducts();
         for (int id : missingProducts) {
@@ -81,7 +92,7 @@ public abstract class Customer implements Person {
      * If `desiredProductIds` desires more than one Product, try to take as many as desired. In case `buyZone` has run
      * out of Products, simply stop taking more Products.
      *
-     * @param productId unique identifier for product
+     * @param productId unique identifier for product type
      * @param buyZone   instance of BuyZone that contains Product instances with the above identifier
      */
     private void putInShoppingCart(int productId, BuyZone buyZone) {
@@ -139,28 +150,38 @@ public abstract class Customer implements Person {
         }
     }
 
+    /**
+     * Get the amount of products the customer desires from a certain product.
+     *
+     * @param productID unique identifier for product type
+     * @return          amount of products desired of a certain type
+     */
     public int wantsProductAmount(int productID) {
         return desiredProductIds.get(productID);
     }
 
+    /**
+     * Add products to the customer's shopping cart.
+     *
+     * @param products list of products that must be added to the shopping cart
+     */
     public void addProducts(List<Product> products) {
         shoppingCart.addAll(products);
-    }
-
-    public int getLocation() {
-        return indexPosition;
     }
 
     public void act(Supermarket supermarket) {
         BuyZone currentBuyZone = supermarket.getBuyZones()[indexPosition];
 
         if (currentBuyZone.inQueue(this)) {
+            // If the customer is currently in a queue; do not do anything.
             return;
         }
 
         if (currentBuyZone.hasQueue() && desiresProductFromBuyZone(currentBuyZone)) {
+            // Department
             currentBuyZone.registerToQueue(this);
         } else if (desiresProductFromBuyZone(currentBuyZone)) {
+            // Aisle
             takeProductsFromBuyZone(currentBuyZone);
         } else {
             step(supermarket);
