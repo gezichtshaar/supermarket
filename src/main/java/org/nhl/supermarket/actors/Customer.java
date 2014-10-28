@@ -3,7 +3,6 @@ package org.nhl.supermarket.actors;
 import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Person;
-import org.nhl.supermarket.models.Department;
 import org.nhl.supermarket.models.Product;
 
 import java.math.BigDecimal;
@@ -161,11 +160,9 @@ public abstract class Customer implements Person {
 
         if (currentBuyZone.hasQueue() && desiresProductFromBuyZone(currentBuyZone)) {
             currentBuyZone.registerToQueue(this);
-        }
-        else if(desiresProductFromBuyZone(currentBuyZone)) {
+        } else if (desiresProductFromBuyZone(currentBuyZone)) {
             takeProductsFromBuyZone(currentBuyZone);
-        }
-        else {
+        } else {
             step(supermarket);
         }
     }
