@@ -6,8 +6,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.nhl.supermarket.actors.Customer;
+import org.nhl.supermarket.actors.Employee;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Person;
+import org.nhl.supermarket.interfaces.Task;
 import org.nhl.supermarket.models.CashRegister;
 import org.nhl.supermarket.models.Database;
 import org.nhl.supermarket.models.Storage;
@@ -48,15 +50,32 @@ public class Supermarket {
         return cashRegisterQueue;
     }
 
+    public CashRegister[] getCashRegisters() {
+        return cashRegisters;
+    }
+
     public Storage getStorage() {
         return storage;
+    }
+
+    public boolean hasEmployee(Task task) {
+        for (Person person : persons) {
+            if (person instanceof Employee) {
+                // Well isn't this ugly.
+                Employee employee = (Employee)person;
+                if (employee.getTask() == task) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void simulate() {
         running = true;
 
         while (running) {
-            System.out.printf("Work in progress");
+            System.out.println("Work in progress");
             running = false;
         }
     }

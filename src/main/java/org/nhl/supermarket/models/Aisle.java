@@ -12,9 +12,10 @@ import java.util.Queue;
 /**
  * Created by ruben on 02/10/14.
  */
-public class Aisle implements BuyZone, Task {
+public class Aisle implements BuyZone {
     private List<Shelf> shelves;
     private int lastShelfFilled = 0;
+    private int MIN_REFILL_SIZE = 3;
 
     public Aisle(int[] productIds) {
         this.shelves = new ArrayList<Shelf>();
@@ -78,6 +79,11 @@ public class Aisle implements BuyZone, Task {
     }
 
     @Override
+    public boolean queueIsEmpty() {
+        return true;
+    }
+
+    @Override
     public void update(Supermarket supermarket) {
         int moduloIndex;
         for (int i = 0; i < shelves.size(); i++) {
@@ -86,7 +92,7 @@ public class Aisle implements BuyZone, Task {
             // In case the last filled shelf was 3, `moduloIndex` will start out as 4. If a fourth shelf doesn't exist,
             // apply modulo operation to make it 0.
             moduloIndex = (i + lastShelfFilled + 1) % shelves.size();
-            if (shelves.get(moduloIndex).productCount() <= 3) {
+            if (shelves.get(moduloIndex).productCount() <= MIN_REFILL_SIZE) {
                 shelves.get(moduloIndex).fill(supermarket.getStorage());
                 lastShelfFilled = moduloIndex;
                 return;

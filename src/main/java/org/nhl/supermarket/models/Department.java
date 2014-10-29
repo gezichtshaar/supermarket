@@ -12,7 +12,7 @@ import java.util.Stack;
 /**
  * Created by remy on 08/10/14.
  */
-public class Department implements BuyZone, Task {
+public class Department implements BuyZone {
 
     private Shelf shelf;
     private Queue<Customer> customerQueue;
@@ -61,7 +61,10 @@ public class Department implements BuyZone, Task {
         return customerQueue.contains(customer);
     }
 
-
+    @Override
+    public boolean queueIsEmpty() {
+        return customerQueue.isEmpty();
+    }
 
     @Override
     public void update(Supermarket supermarket) {

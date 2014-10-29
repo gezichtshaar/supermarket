@@ -70,7 +70,7 @@ public abstract class Customer implements Person {
      * Check whether a BuyZone holds products that the customer desires.
      *
      * @param buyZone BuyZone that must be inspected for products that the customer desired
-     * @return        boolean value for whether the BuyZone contains any desired products
+     * @return boolean value for whether the BuyZone contains any desired products
      */
     public boolean desiresProductFromBuyZone(BuyZone buyZone) {
         List<Integer> missingProducts = findMissingProducts();
@@ -154,7 +154,7 @@ public abstract class Customer implements Person {
      * Get the amount of products the customer desires from a certain product.
      *
      * @param productID unique identifier for product type
-     * @return          amount of products desired of a certain type
+     * @return amount of products desired of a certain type
      */
     public int wantsProductAmount(int productID) {
         return desiredProductIds.get(productID);
