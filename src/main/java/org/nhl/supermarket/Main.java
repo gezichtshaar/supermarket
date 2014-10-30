@@ -3,7 +3,7 @@ package org.nhl.supermarket;
 import org.nhl.supermarket.interfaces.BuyZone;
 
 /**
- * Hello world!
+ * Supermarket
  */
 public class Main {
     private static final BuyZone[] SUPERMARKET_MAP = new BuyZone[] {};
