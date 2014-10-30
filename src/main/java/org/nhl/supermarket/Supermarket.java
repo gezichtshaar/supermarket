@@ -70,13 +70,23 @@ public class Supermarket {
         }
         return false;
     }
+    
+    private void tick() {
+    	this.database.initCommit();
+    	// code for actor updates
+    	this.database.doCommit();
+    }
 
     public void simulate() {
         running = true;
 
         while (running) {
-            System.out.println("Work in progress");
+            tick();
             running = false;
         }
+    }
+    
+    public void close() {
+    	this.database.close();
     }
 }
