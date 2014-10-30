@@ -18,4 +18,6 @@ public interface BuyZone extends Task {
     public void registerToQueue(Customer customer);
     public boolean inQueue(Customer customer);
     public boolean queueIsEmpty();
+
+    public int sizeOfSmallestShelf();
 }

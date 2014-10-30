@@ -58,7 +58,16 @@ public class Employee implements Person {
             task = serviceableBuyZones.get(0);
         } else {
             // Fill a BuyZone.
-            task = null; // TODO: Find a BuyZone that needs to be filled.
+            int smallestSize = -1;
+            int buyZoneSize;
+
+            for (BuyZone buyZone : supermarket.getBuyZones()) {
+                buyZoneSize = buyZone.sizeOfSmallestShelf();
+                if (buyZoneSize < smallestSize || smallestSize == -1) {
+                    smallestSize = buyZoneSize;
+                    task = buyZone;
+                }
+            }
         }
 
         task.update(supermarket);

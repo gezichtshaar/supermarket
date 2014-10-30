@@ -3,11 +3,8 @@ package org.nhl.supermarket.models;
 import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.actors.Customer;
 import org.nhl.supermarket.interfaces.BuyZone;
-import org.nhl.supermarket.interfaces.Task;
-import org.nhl.supermarket.models.Product;
 
 import java.util.Queue;
-import java.util.Stack;
 
 /**
  * Created by remy on 08/10/14.
@@ -64,6 +61,11 @@ public class Department implements BuyZone {
     @Override
     public boolean queueIsEmpty() {
         return customerQueue.isEmpty();
+    }
+
+    @Override
+    public int sizeOfSmallestShelf() {
+        return shelf.productCount();
     }
 
     @Override

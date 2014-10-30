@@ -3,11 +3,9 @@ package org.nhl.supermarket.models;
 import org.nhl.supermarket.Supermarket;
 import org.nhl.supermarket.actors.Customer;
 import org.nhl.supermarket.interfaces.BuyZone;
-import org.nhl.supermarket.interfaces.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Created by ruben on 02/10/14.
@@ -81,6 +79,17 @@ public class Aisle implements BuyZone {
     @Override
     public boolean queueIsEmpty() {
         return true;
+    }
+
+    @Override
+    public int sizeOfSmallestShelf() {
+        int smallestSize = -1;
+        for (Shelf shelf : shelves) {
+            if (shelf.productCount() < smallestSize || smallestSize == -1) {
+                smallestSize = shelf.productCount();
+            }
+        }
+        return smallestSize;
     }
 
     @Override
