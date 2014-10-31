@@ -80,10 +80,15 @@ public class Supermarket {
     public void simulate() {
         running = true;
 
+        System.out.println("start");
         while (running) {
             tick();
             running = false;
+            System.out.println("running");
         }
+
+        close();
+        System.out.println("stop");
     }
     
     public void close() {

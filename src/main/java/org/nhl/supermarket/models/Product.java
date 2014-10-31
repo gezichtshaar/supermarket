@@ -24,7 +24,7 @@ public class Product {
 	@Column(name = "Discount")
     private BigDecimal discount = new BigDecimal("1");
 
-    private Product(int id, String name, BigDecimal price) {
+    public Product(int id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;
