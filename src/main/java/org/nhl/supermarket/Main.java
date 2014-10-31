@@ -2,6 +2,10 @@ package org.nhl.supermarket;
 
 import org.nhl.supermarket.interfaces.BuyZone;
 
+import Controllers.MainController;
+import Graphics.MainWindow;
+import Supermarket.Supermarket;
+
 /**
  * Supermarket
  */
@@ -10,6 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
         Supermarket supermarket = new Supermarket(SUPERMARKET_MAP);
-        supermarket.simulate();
+		MainController controller = new MainController(supermarket);
+		MainWindow mainWindow = new MainWindow(controller);
+		controller.addView(mainWindow);
+		
+		new Thread(mainWindow).start();
+		new Thread(supermarket).start();
     }
 }

@@ -1,6 +1,7 @@
 package org.nhl.supermarket;
 
 import java.util.HashSet;
+import java.util.Observable;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -17,7 +18,7 @@ import org.nhl.supermarket.models.Storage;
 /**
  * Created by ruben on 02/10/14.
  */
-public class Supermarket {
+public class Supermarket extends Observable implements Runnable {
     private Boolean running = false;
 
     private Database database;
@@ -77,12 +78,15 @@ public class Supermarket {
     	this.database.doCommit();
     }
 
-    public void simulate() {
+    public void run() {
         running = true;
 
         System.out.println("start");
         while (running) {
+        	setChanged();
             tick();
+            notifyObservers();
+            
             running = false;
             System.out.println("running");
         }
@@ -93,5 +97,10 @@ public class Supermarket {
     
     public void close() {
     	this.database.close();
+    }
+    
+    @Override
+    public String toString() {
+    	return String.format("Aantal personen: %d", persons.size());
     }
 }
