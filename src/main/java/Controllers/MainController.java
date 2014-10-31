@@ -25,6 +25,10 @@ public class MainController {
 	}
 	
 	public boolean isPaused() {
-		return supermarket.isPaused();
+		return false;
 	}
+
+    public void addCustomer() {
+        supermarket.addCustomer();
+    }
 }

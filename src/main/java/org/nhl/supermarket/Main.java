@@ -4,7 +4,6 @@ import org.nhl.supermarket.interfaces.BuyZone;
 
 import Controllers.MainController;
 import Graphics.MainWindow;
-import Supermarket.Supermarket;
 
 /**
  * Supermarket

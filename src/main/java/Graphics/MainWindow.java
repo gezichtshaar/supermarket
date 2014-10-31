@@ -46,7 +46,7 @@ public class MainWindow implements Observer, Runnable {
 		btnNewCost.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				controller.addCostumer();
+                controller.addCustomer();
 			}
 		});
 		btnNewCost.setBounds(10, 121, 91, 23);

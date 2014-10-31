@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.nhl.supermarket.actors.Customer;
 import org.nhl.supermarket.actors.Employee;
+import org.nhl.supermarket.actors.NewDutchCustomer;
 import org.nhl.supermarket.interfaces.BuyZone;
 import org.nhl.supermarket.interfaces.Person;
 import org.nhl.supermarket.interfaces.Task;
@@ -59,6 +60,10 @@ public class Supermarket extends Observable implements Runnable {
         return storage;
     }
 
+    public void addCustomer() {
+        persons.add(new NewDutchCustomer());
+    }
+
     public boolean hasEmployee(Task task) {
         for (Person person : persons) {
             if (person instanceof Employee) {
@@ -86,8 +91,6 @@ public class Supermarket extends Observable implements Runnable {
         	setChanged();
             tick();
             notifyObservers();
-            
-            running = false;
             System.out.println("running");
         }
 
